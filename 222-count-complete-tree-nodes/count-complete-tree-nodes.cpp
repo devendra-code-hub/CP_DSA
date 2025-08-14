@@ -12,13 +12,15 @@
 class Solution {
 public:
 vector<int>v;
+int cnt=0;
     int countNodes(TreeNode* root) {
         if(root == NULL) return 0;
           
           countNodes(root->left);
-          v.push_back(root->val);
+        //   v.push_back(root->val);
+        cnt++;
           countNodes(root->right);
 
-          return v.size();
+          return cnt;
     }
 };
