@@ -24,7 +24,8 @@ public:
             TreeNode* node = it.first;
             int level = it.second;
             if(node->left == NULL && node->right == NULL){
-                mp[level] = node->val;
+               // mp[level] = node->val;
+               return level+1;
             }
             if(node->left){
                 q.push({node->left, level+1});
@@ -35,6 +36,7 @@ public:
         }
         int ans = mp.begin()->first;
 
-        return ans+1;
+       // return ans+1;
+       return 0;
     }
 };
