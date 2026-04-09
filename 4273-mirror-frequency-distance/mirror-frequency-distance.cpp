@@ -19,13 +19,13 @@ public:
                 mirror = '9' - ch + '0';
             } else if (ch >= 'a' && ch <= 'z') {
                 mirror = 'z' - ch + 'a';
-            } else {
-                // If the character isn't a digit or lowercase letter, 
-                // it's its own mirror or doesn't pair
-                ans += freq[i];
-                processed[i] = true;
-                continue;
-            }
+            } //else {
+            //     // If the character isn't a digit or lowercase letter, 
+            //     // it's its own mirror or doesn't pair
+            //     ans += freq[i];
+            //     processed[i] = true;
+            //     continue;
+            // }
 
             // Calculate the difference between the char and its mirror
             ans += abs(freq[ch] - freq[mirror]);
