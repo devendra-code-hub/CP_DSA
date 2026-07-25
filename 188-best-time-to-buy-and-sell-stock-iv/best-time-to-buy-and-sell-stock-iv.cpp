@@ -1,0 +1,20 @@
+class Solution {
+public:
+int f(int i, int buy, int cap, int n, vector<int>& prices, vector<vector<vector<int>>>&dp){
+    if(i==n || cap ==0) return 0;
+    if(dp[i][buy][cap] != -1) return dp[i][buy][cap];
+
+    if(buy ==1){
+        return dp[i][buy][cap] = max(-prices[i]+ f(i+1,0,cap, n, prices, dp), f(i+1, 1,cap,n,prices, dp));
+    }
+  else{
+        return dp[i][buy][cap] = max(prices[i]+ f(i+1,1,cap-1, n, prices, dp), f(i+1, 0,cap,n,prices, dp));
+    }
+ }
+    int maxProfit(int k, vector<int>& prices) {
+        int n=prices.size();
+        vector<vector<vector<int>>>dp(n,vector<vector<int>>(2,vector<int>(k+1,-1)));
+
+        return f(0,1,k,n,prices, dp);
+    }
+};
