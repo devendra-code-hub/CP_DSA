@@ -7,7 +7,7 @@ public:
         while(l<=hi){
             int m=(l+hi)/2;
             long long t=0;
-            for(auto c : piles) t+= (c+m-1)/m;
+            for(auto c : piles) t+= ceil((double)c/m);
             if(t <= h){
                 ans=min(ans,m);
                 hi=m-1;
