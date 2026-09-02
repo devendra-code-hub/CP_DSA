@@ -1,52 +1,37 @@
 class Solution {
 public:
+vector<int> NSE(vector<int>&v){
+    int n=v.size();
+    stack<int>st;
+    vector<int>ans(n);
+    for(int i=n-1; i>=0; i--){
+        while(!st.empty() && v[st.top()]>= v[i])st.pop();
+        ans[i]=st.empty()?n-1:st.top()-1;
+        st.push(i);
+    }
+    return ans;
+}
+vector<int> PSE(vector<int>&v){
+    int n=v.size();
+    stack<int>st;
+    vector<int>ans(n);
+    for(int i=0; i<n; i++){
+        while(!st.empty() && v[st.top()]> v[i])st.pop();
+        ans[i]=st.empty()?0:st.top()+1;
+        st.push(i);
+    }
+    return ans;
+}
     int largestRectangleArea(vector<int>& heights) {
-   
-     
-        int n = heights.size();
-        stack<int> st;
-
-        int leftsmall[n], rightsmall[n];
-
-        // Compute Nearest Smaller to Left (NSL) for each bar
-        for (int i = 0; i < n; i++) {
-            // Pop until a smaller element is found or stack is empty
-            while (!st.empty() && heights[st.top()] >= heights[i]) {
-                st.pop();
-            }
-
-            // If stack is empty, no smaller element on the left
-            leftsmall[i] = st.empty() ? 0 : st.top() + 1;
-
-            // Push current index to stack
-            st.push(i);
+        int n=heights.size();
+        vector<int>nse=NSE(heights);
+        vector<int>pse=PSE(heights);
+        int ans=0;
+        for(int i=0; i<n; i++){
+            int w=nse[i]-pse[i]+1;
+            ans=max(ans, w*heights[i]);
         }
 
-        // Clear stack to reuse for NSR
-        while (!st.empty()) st.pop();
-
-        // Compute Nearest Smaller to Right (NSR) for each bar
-        for (int i = n - 1; i >= 0; i--) {
-            while (!st.empty() && heights[st.top()] >= heights[i]) {
-                st.pop();
-            }
-
-            // If stack is empty, no smaller to the right
-            rightsmall[i] = st.empty() ? n - 1 : st.top() - 1;
-
-            st.push(i);
-        }
-
-        // Calculate max area using NSL and NSR
-        int maxA = 0;
-        for (int i = 0; i < n; i++) {
-            int width = rightsmall[i] - leftsmall[i] + 1;
-            maxA = max(maxA, heights[i] * width);
-        }
-
-        return maxA;
-  
-
- 
+        return ans;
     }
 };
