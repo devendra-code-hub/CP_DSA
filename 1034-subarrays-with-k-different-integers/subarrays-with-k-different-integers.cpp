@@ -1,0 +1,20 @@
+class Solution {
+public:
+int Atmost(vector<int>&nums, int k){
+    unordered_map<int,int>mp;
+    int ans=0,l=0;
+    for(int r=0; r<nums.size(); r++){
+        mp[nums[r]]++;
+        while(l<=r && mp.size()>k){
+            mp[nums[l]]--;
+            if(mp[nums[l]]==0)mp.erase(nums[l]);
+            l++;
+        }
+        ans+=r-l+1;
+    }
+    return ans;
+}
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+        return Atmost(nums,k)-Atmost(nums,k-1);
+    }
+};
