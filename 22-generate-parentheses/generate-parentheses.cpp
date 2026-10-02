@@ -1,25 +1,17 @@
 class Solution {
 public:
- vector<string>res;
- void validParenthesis(int n,int open, string curr){
-
-    if(curr.length() == 2*n){
-        res.push_back(curr);
-        return ;
+void f(int open, int close, string s,int n, vector<string>&ans){
+    if(s.size()==2*n){
+        ans.push_back(s);
+        return;
     }
-
-    if(open < n){
-        validParenthesis(n,open+1,curr +'(');
-    }
-
-    if(curr.length()-open < open){
-        validParenthesis(n,open,curr +')');
-    }
-
- }
+    if(open<n) f(open+1, close, s+'(', n, ans);
+    if(close<open) f(open, close+1, s+')', n, ans);
+}
     vector<string> generateParenthesis(int n) {
-        validParenthesis(n,0,"");
+        vector<string>ans;
+        f(0,0,"",n, ans);
 
-        return res;
+        return ans;
     }
 };
