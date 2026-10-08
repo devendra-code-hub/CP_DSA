@@ -1,35 +1,20 @@
 class Solution {
 public:
     string removeOuterParentheses(string s) {
-        string ans="";
-        int n=s.size();
-        vector<int>l(n,0),r(n,0);
-        int cnt=0;
-        for(int i=0; i<n; i++){
-            if(s[i] =='('){
-                cnt++;
-                l[i]=cnt;
-           }else{
-            cnt--;
-            l[i]=cnt;
-           }
-        }
-        for(int i=n-1; i>=0; i--){
-            if(s[i] =='('){
-                cnt--;
-                r[i]=cnt;
-           }else{
-            cnt++;
-            r[i]=cnt;
-           }
-        }
-         
-        for(int i=0; i<n; i++){
-            if(l[i] == 0 || r[i] ==0) continue;
-            ans+=s[i];
-        }
+         string ans="";
+         int n=s.size(), cnt=0;
+         vector<int>v;
+         for(auto c: s){
+            if(c=='(')cnt++;
+           else if(c==')')cnt--;
+           v.push_back(cnt);
+         }
+         for(int i=1; i<n; i++){
+            cout<<v[i];
+            if(v[i]==0 || v[i-1]==0)continue;
+           else ans+=s[i];
+         }
 
-        return ans;
-
+         return ans;
     }
 };
