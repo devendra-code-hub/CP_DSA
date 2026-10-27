@@ -11,18 +11,15 @@
  */
 class Solution {
 public:
-bool f(TreeNode* p, TreeNode* q){
-    if(p==NULL && q==NULL) return true;
-    if((p==NULL && q != NULL) || (p !=NULL && q==NULL)) return false;
-    if(p->val != q->val) return false;
-    bool l=f(p->left, q->right);
-    bool r=f(p->right, q->left);
-
-    return l&&r;
-}
+    bool f(TreeNode* a, TreeNode* b){
+        if(a==NULL && b==NULL) return true;
+        if((a==NULL && b!=NULL) || (a!=NULL && b==NULL) || (a->val != b->val)) return false;
+        bool l=f(a->left, b->right);
+        bool r=f(a->right, b->left);
+        return l&&r;
+    }
     bool isSymmetric(TreeNode* root) {
-        if(root ==NULL) return true;
-
+        if(root == NULL) return true;
         return f(root->left, root->right);
     }
 };
